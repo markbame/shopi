@@ -1,0 +1,9 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/antd/3.10.9/antd.min.css')
+  body
+    block content
+    if pageStatus
+      script(type='text/javascript', src='/javascripts/vendor.js')
+      script(type='text/javascript', src='/javascripts/app.js')
