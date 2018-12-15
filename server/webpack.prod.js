@@ -8,7 +8,6 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: './client/index.js',
-  devtool: 'cheap-module-source-map',
   output: {
     filename: 'app.js',
     path: path.resolve(__dirname, '../public/javascripts/')

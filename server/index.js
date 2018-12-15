@@ -3,12 +3,14 @@ import express from 'express'
 import path from 'path'
 import pug from 'pug'
 import compression from 'compression'
+import cookieParser from 'cookie-parser'
 const app = express()
 
 app.engine('pug', pug.__express)
 app.set('views', path.join(__dirname, '..', 'views'))
 app.set('view engine', 'pug')
 app.use(compression())
+app.use(cookieParser())
 app.use(express.static('./public'))
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';

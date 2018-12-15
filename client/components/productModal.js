@@ -4,7 +4,6 @@ import ProductForm from './productForm'
 
 class itemModal extends Component {
   state = { visible: false }
-
   showModal = () => {
     this.setState({
       visible: true,
@@ -12,14 +11,12 @@ class itemModal extends Component {
   }
 
   handleOk = (e) => {
-    console.log(e);
     this.setState({
       visible: false,
     });
   }
 
   handleCancel = (e) => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -38,7 +35,7 @@ class itemModal extends Component {
           Add Product
         </Button>
         <Modal
-          closable
+          closable={false}
           title="Add Product Form"
           visible={this.state.visible}
           footer={[
@@ -47,6 +44,7 @@ class itemModal extends Component {
         >
           <ProductForm
             itemID={this.props.itemID}
+            userID={this.props.userID}
             create={this.props.create}
             update={this.props.update}
             handleClose={this.handleClose.bind(this)}

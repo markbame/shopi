@@ -7,11 +7,19 @@ export default (
     case 'LOADING':
       state = { ...state, loading: true, error: false }
       return state
-    case 'USER_AUTHENTICATED':
-      console.log('user auth')
+    case 'USER_STATUS':
       state = {
         ...state,
-        value: { user: action.user },
+        status:  action.status,
+        userID:  action.userID,
+        loading: false,
+        error: false
+      }
+      return state
+    case 'USER_LOGIN_REDIRECT':
+      state = {
+        ...state,
+        redirect:true,
         loading: false,
         error: false
       }

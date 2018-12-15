@@ -10,5 +10,4 @@ const allReducers = {
   invoice,
   item
 }
-
-export const reducers = combineReducers( allReducers)
+export const reducers = combineReducers( allReducers )

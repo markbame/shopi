@@ -33,6 +33,6 @@ export const columns = [
    render: text =>
     <div>
       <Link to={`/product/${text}`}><Icon type="form" /></Link><Divider type="vertical" />
-      <span onClick={()=>deleteData(`products/${text}`)} style={{color:"#1890ff", cursor:'pointer'}}><Icon type="delete" /></span>
+      <span onClick={()=>deleteData(`products/userid/${text}`)} style={{color:"#1890ff", cursor:'pointer'}}><Icon type="delete" /></span>
     </div>,
   }];

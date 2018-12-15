@@ -1,32 +1,28 @@
 import React, { Component } from 'react'
-import moment from 'moment'
 import  { Redirect } from 'react-router-dom'
-import { Form, Select, Input, Button, Tag, DatePicker, Icon, Checkbox } from 'antd'
+import moment from 'moment'
+import { Form, Select, Input, Button, Tag, DatePicker, Icon, Checkbox, InputNumber } from 'antd'
 const FormItem = Form.Item
 const Option = Select.Option
 
 class productForm extends Component {
+
+  state = {
+    product:{}
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
         if(this.props.create) {
-          this.props.create(values, `products`, "UPSERTED_PRODUCT")
+          this.props.create(values, `products/${this.props.userID}`, "UPSERTED_PRODUCT")
           this.props.handleClose()
         } else {
-          this.props.update(values, `products/${this.props.id}`, "UPSERTED_PRODUCT")
-          this.setState({
-            redirect: true
-          })
+          this.props.update(values, `products/${this.props.userID}/${this.props.id}`, "UPSERTED_PRODUCT")
+          this.setState({ redirect: true })
         }
       }
     })
-  }
-
-  componentWillReceiveProps (newProps) {
-      this.setState({
-        product: newProps.product && newProps.product
-      })
   }
 
   render() {
@@ -34,8 +30,7 @@ class productForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} style={{padding:"2px"}}>
       <Tag color="magenta" style={{margin:"20px"}}><Icon type="shopping" /> Update Product</Tag>
-
-      { this.state && this.state.redirect && <Redirect to={`/products`} /> }
+      { this.state.redirect && <Redirect to={`/products`} /> }
       <FormItem
           label="Title"
           labelCol={{ span: 5 }}
@@ -43,7 +38,7 @@ class productForm extends Component {
         >
           {getFieldDecorator('title', {
             rules: [{ required: true, message: 'Please add the title!' }],
-            initialValue: this.state && this.state.product && this.state.product.title || ''
+            initialValue:   this.props.product && this.props.product.title || ''
           })(
             <Input />
           )}
@@ -55,9 +50,9 @@ class productForm extends Component {
         >
           {getFieldDecorator('price', {
             rules: [{ required: true, message: 'Please add the price!' }],
-            initialValue: this.state && this.state.product && this.state.product.price || 1
+            initialValue: this.props.product &&  this.props.product.price || 1
           })(
-            <Input />
+            <InputNumber />
           )}
       </FormItem>
       <FormItem
@@ -67,7 +62,7 @@ class productForm extends Component {
           >
             {getFieldDecorator('unit', {
               rules: [{ required: true, message: 'Please add the unit!' }],
-              initialValue:  this.state && this.state.product && this.state.product.unit || 'pcs'
+              initialValue: this.props.product &&  this.props.product.unit || 'pcs'
             })(
               <Input />
             )}
@@ -77,7 +72,7 @@ class productForm extends Component {
           wrapperCol={{ span: 12 }}>
           {getFieldDecorator('taxable', {
             valuePropName: 'checked',
-            initialValue: this.state && this.state.product && this.state.product.taxable?true:false
+            initialValue: this.props.product &&  this.props.product.taxable?true:false
           })(
             <Checkbox/>
           )}
