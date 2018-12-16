@@ -20,6 +20,11 @@ var cfg = config({
         env      : 'PROJECT_ID',
         type     : 'string',
         required : true,
+    },
+    project_title : {
+        env      : 'PROJECT_TITLE',
+        type     : 'string',
+        required : true,
     }
 })
 

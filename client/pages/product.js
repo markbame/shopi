@@ -9,13 +9,12 @@ import Cookies from 'universal-cookie'
 
 const PAGE_NAME = 'Product'
 class Product extends Component {
-  state =  {
-
-  }
+  state =  { }
   static fetchData (fd) {
     const {store, match, adminAuth, adminDB, authUser, idToken, eventEmitter } = fd
     adminAuth.verifyIdToken(idToken).then(decodedToken => {
-        get(`products/${decodedToken.uid}/${match.params.id}`, 'FETCHED_PRODUCT', authUser.uid, true)( store.dispatch, adminDB, eventEmitter )
+        get(`products/${decodedToken.uid}/${match.params.id}`, 'FETCHED_PRODUCT', authUser.uid, true)
+        ( store.dispatch, adminDB, eventEmitter )
     })
   }
 
@@ -24,7 +23,7 @@ class Product extends Component {
     this.props.get(`products/${userID}/${this.props.match.params.id}`, 'FETCHED_PRODUCT')
   }
 
-   render() { console.log('this.props.state.products.product', this.props.state.products.product)
+   render() {
     return (
       <Card bordered={false}  style={{width:"800px"}}>
         <Navigation name={PAGE_NAME} />

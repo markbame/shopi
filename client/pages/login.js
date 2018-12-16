@@ -5,27 +5,18 @@ import  { Redirect } from 'react-router-dom'
 import { Card } from 'antd'
 import Navigation from '../components/navigation'
 import LoginForm from '../components/loginForm'
-import { login } from '../state/actions/users'
-
+import { login, SSR_LOAD_COMPLETE } from '../state/actions/users'
 const LOGIN_REDIRECT = 'products'
-
 class Login extends Component {
-  state = {
-    redirect: false,
-    loading: false,
-  }
-  componentWillReceiveProps (newProps) {
-    this.setState({
-      redirect: newProps.users.redirect,
-      loading: newProps.users.loading
-    })
+  static fetchData (fd) {
+    setTimeout(()=>fd.eventEmitter.emit(SSR_LOAD_COMPLETE))
   }
   render() {
     return (
       <Card bordered={false}  style={{width:"800px"}}>
-       { this.state.redirect && <Redirect to={`/${LOGIN_REDIRECT}`} /> }
+       { this.props.users.redirect && <Redirect to={`/${LOGIN_REDIRECT}`} /> }
         <Navigation name={'Login'} />
-        <LoginForm login={this.props.login} loading={this.state.loading} />
+        <LoginForm login={this.props.login} loading={this.props.users.loading} />
       </Card>
     )
   }
