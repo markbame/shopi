@@ -1,12 +1,17 @@
-#Super Fast and light weight bundles
+#SHOP WITH SOCIAL NETWORK - REACT SSR FIREBASE - MMR for development mode
 
-you can also pre transpile before running in production
-## Getting started
+* You can also pre transpile before running in production
+* You can deploy in heroku for staging or production
 
-* clone the project
-* npm install
-* run `npm yarn dev` - starts ssr, webpack watch and hot reload
-* run `npm yarn prod` - for production
+
+### Getting started
+
+* clone the project: `git clone <git url>`
+* `npm install`
+* run `npm run dev` - for mmr development
+* run `npm run devbuild` - fast development build
+* run `npm run build` - for production
+
 
 ### formatting, es2017+, etc.
 
@@ -14,7 +19,7 @@ We have all the esXXXX things - es2015, es2016, es2017, object-rest-spread - cou
 
 ### Tests
 
-We're testing via jest, with test files adjacent to the unit under test and named \*.test.js, eg.
+Testing via jest, with test files adjacent to the unit under test and named \*.test.js, eg.
 
 ### Configuration
 
@@ -24,13 +29,6 @@ variables as described by [The Twelve Factor App](https://12factor.net/).
 You'll need to set env vars for all of the non-default properties, and maybe override some of
 the defaults too.
 
-One way to do this in development is to create a .env file in the root of the project (it will
-be .gitignored) and `source ./.env` before running the app.
+One way to do this in development is to create a .env file in the root of the project app.
 
-In code you can access the config properties simply by importing `config.js` from the project root,
-e.g. a file in ./src could use config like this:
-
-```
-import `../config`
-console.log(`the bind port is ${config.bindPort}`)
-```
+In code you can access the config properties simply by importing `config/index.js` from the project root.
