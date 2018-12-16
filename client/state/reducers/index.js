@@ -5,9 +5,9 @@ import item from './item'
 import products from './products'
 
 const allReducers = {
-  products,
-  users,
-  invoice,
-  item
+	products,
+	users,
+	invoice,
+	item
 }
 export const reducers = combineReducers( allReducers )

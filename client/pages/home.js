@@ -6,27 +6,27 @@ import Navigation from '../components/navigation'
 
 class Home extends Component {
 
-  static fetchData(store) {
+	static fetchData(store) {
 
-  }
+	}
 
-   render() {
-    return (
-      <Card bordered={false}  style={{width:"800px"}}>
-        <Navigation name={'Home'} />
-        <h3>Home</h3>
-      </Card>
-    )
-  }
+	render() {
+		return (
+			<Card bordered={false}  style={{width:'800px'}}>
+				<Navigation name={'Home'} />
+				<h3>Home</h3>
+			</Card>
+		)
+	}
 }
 
 function mapStateToProps(state, props) {
-  const {users} = state
-  return {users}
+	const {users} = state
+	return {users}
 }
 
 function mapDispatchToProps(dispatch) {
-  return {}
+	return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -8,14 +8,14 @@ import store from './state/store'
 import App from './app'
 
 if (module.hot) {
-  module.hot.accept()
+	module.hot.accept()
 }
 
 const main = document.getElementById('root')
 const renderOrHydrate = main.innerHTML.trim().length ? 'hydrate' : 'render'
 ReactDOM[renderOrHydrate](
-  <Provider store={store}>
-    <BrowserRouter store={store}>{renderRoutes(routes)}</BrowserRouter>
-  </Provider>,
-  main
+	<Provider store={store}>
+		<BrowserRouter store={store}>{renderRoutes(routes)}</BrowserRouter>
+	</Provider>,
+	main
 )

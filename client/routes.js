@@ -6,36 +6,36 @@ import Products from './pages/products'
 import Product from './pages/product'
 
 const routes = [
-  {
-    component: AppRoot,
-    routes: [
-      {
-        path: '/',
-        exact: true,
-        component: Home
-      },
-      {
-        path: '/login',
-        component: Login
-      },
-      {
-        path: '/register',
-        component: Register
-      },
-      {
-        path: '/products',
-        component: Products,
-      },
-      {
-        path: '/product/:id',
-        component: Product,
-      },
-      {
-       path: '*',
-       component: Home
-      }
-    ]
-  }
+	{
+		component: AppRoot,
+		routes: [
+			{
+				path: '/',
+				exact: true,
+				component: Home
+			},
+			{
+				path: '/login',
+				component: Login
+			},
+			{
+				path: '/register',
+				component: Register
+			},
+			{
+				path: '/products',
+				component: Products,
+			},
+			{
+				path: '/product/:id',
+				component: Product,
+			},
+			{
+				path: '*',
+				component: Home
+			}
+		]
+	}
 ]
 
 export default routes

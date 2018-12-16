@@ -13,12 +13,12 @@ app.use(compression())
 app.use(cookieParser())
 app.use(express.static('./public'))
 app.get('*.js', function (req, res, next) {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  next()
+	req.url = req.url + '.gz'
+	res.set('Content-Encoding', 'gzip')
+	next()
 })
 app.use('/', routes)
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000
 app.listen(PORT)
