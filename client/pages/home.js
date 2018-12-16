@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { settings, updateSettings } from '../state/actions/users'
 import { Card, Avatar, Icon, Row } from 'antd'
 import Navigation from '../components/navigation'
 
@@ -27,9 +26,7 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    settings: bindActionCreators(settings, dispatch)
-  }
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -13,32 +13,6 @@ export const COOKIE_USER = 'authUser'
 export const USER_STATUS_ONLINE = 'online'
 export const USER_STATUS_OFFLINE = 'offline'
 
-export const settings = () => {
-  return (dispatch)=>{
-    const messagesRef = firebase.database().ref('settings')
-    messagesRef.on('value', snapshot => {
-        let cleanData, key
-        const keys = Object.keys(snapshot.val())
-        for (var i = 0; i < keys.length; i++) {
-          key = keys[i]
-          cleanData = snapshot.val()[key]
-        }
-        dispatch({ type: SETTINGS_FETCHED, settings: {...cleanData, key } })
-    })
-  }
-}
-
-export const updateSettings = (data) => {
-  return (dispatch)=>{
-      dispatch({ type: UPDATING_SETTINGS})
-      firebase.database().ref('settings/'+data.key).set(data, (error) => {
-        if (!error) {
-          dispatch({ type: UPDATED_SETTINGS, newSettings: data })
-        }
-      })
-  }
-}
-
 export const login = (email, password) => {
   return (dispatch)=>{
       dispatch({ type: LOADING})
@@ -46,7 +20,6 @@ export const login = (email, password) => {
       authState(dispatch)
   }
 }
-
 export const register = (email, password) => {
   return (dispatch)=>{
       dispatch({ type: LOADING})
@@ -54,14 +27,12 @@ export const register = (email, password) => {
       authState(dispatch)
   }
 }
-
 export const logout = () => {
   return (dispatch)=>{
       auth.signOut()
       dispatch({ type: USER_STATUS, status: USER_STATUS_OFFLINE})
   }
 }
-
 export const userStatus = (userID) => {
   return (dispatch)=>{
     if(userID) {
@@ -69,7 +40,6 @@ export const userStatus = (userID) => {
     }
   }
 }
-
 export const authState =  (dispatch) => {
   auth.onAuthStateChanged(firebaseUser => {
     if(firebaseUser) {
@@ -77,7 +47,7 @@ export const authState =  (dispatch) => {
       auth.currentUser.getIdToken(true).then( idToken => {
           cookies.set('idToken', idToken, { path: '/' })
       }).catch( error => {
-          console.log("error", error) 
+          console.log("error", error)
       })
       dispatch({ type: USER_STATUS, status: USER_STATUS_ONLINE, userID: firebaseUser.uid})
       dispatch({ type: USER_LOGIN_REDIRECT})
