@@ -17,7 +17,7 @@ class Products extends Component {
     //return store.dispatch(list(`products/${this.props.state.users.userID || this.state.userID}`, 'FETCHED_PRODUCTS'))
   }
 
-  componentDidMount = () => {  
+  componentDidMount = () => {
     this.props.list(`products/${'AdnSCC8yOwebNVUbCNQjAumxNVd2'}`, 'FETCHED_PRODUCTS')
   }
 

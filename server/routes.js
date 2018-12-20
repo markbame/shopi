@@ -10,7 +10,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk';
 import { reducers } from '../client/state/reducers/'
-import { userStatus, SSR_LOAD_COMPLETE } from '../client/state/actions/users'
+import { userStatus, checkToken, invokeError, SSR_LOAD_COMPLETE } from '../client/state/actions/users'
 import express from 'express'
 import routes from '../client/routes'
 const router = express.Router()
@@ -21,20 +21,29 @@ import {adminAuth, adminDB} from './firebaseInit'
 const eventEmitter = new events.EventEmitter()
 
 router.get('*', (req, res) => {
+  let error = false
+
   const branch = matchRoutes(routes, req.url)
   const promises = branch.map(({ route, match }) => {
     let fetchData = route.component.fetchData
     const cookies = new Cookies(req.cookies)
-    const authUser = cookies.get('authUser')
     const idToken = cookies.get('idToken')
-    userStatus(authUser)(store.dispatch)
+    const authUser = cookies.get('authUser')
+    try {
+      userStatus(authUser, authUser.uid)(store.dispatch)
+      checkToken(idToken)(store.dispatch, adminAuth, eventEmitter, res)
+    } catch (e) {
+      console.log("Error::Invalid Auth")
+      error= true
+    }
+
     return fetchData instanceof Function
       ? fetchData({store, match, adminAuth, adminDB, authUser, idToken, eventEmitter })
       : Promise.resolve(null)
   })
-  eventEmitter.once(SSR_LOAD_COMPLETE, () => render(promises, store, routes, req, res))
+  eventEmitter.once(SSR_LOAD_COMPLETE, () => render(promises, store, routes, req, res, error))
 })
-const render = (promises, store, routes, req, res) => {
+const render = (promises, store, routes, req, res, error=false) => {
   return Promise.all(promises).then(data => {
       let context = {}
       const content = renderToString(
@@ -44,12 +53,8 @@ const render = (promises, store, routes, req, res) => {
           </StaticRouter>
         </Provider>
       )
-     let pageStatus = true
-     if(context.status === 404) {
-        res.status(404);
-        pageStatus = false
-     }
-     res.render('index', { title: PROJECT_TITLE, data: store.getState(), content, pageStatus })
+
+     res.render('index', { title: PROJECT_TITLE, data: store.getState(), content})
    })
 }
 module.exports = router

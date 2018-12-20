@@ -7,32 +7,32 @@ import Product from './pages/product'
 
 const routes = [
 	{
-		component: AppRoot,
-		routes: [
+		component : AppRoot,
+		routes    : [
 			{
-				path: '/',
-				exact: true,
-				component: Home
+				path      : '/',
+				exact     : true,
+				component : Home
 			},
 			{
-				path: '/login',
-				component: Login
+				path      : '/login',
+				component : Login
 			},
 			{
-				path: '/register',
-				component: Register
+				path      : '/register',
+				component : Register
 			},
 			{
-				path: '/products',
-				component: Products,
+				path      : '/products',
+				component : Products,
 			},
 			{
-				path: '/product/:id',
-				component: Product,
+				path      : '/product/:id',
+				component : Product,
 			},
 			{
-				path: '*',
-				component: Home
+				path      : '*',
+				component : Home
 			}
 		]
 	}
